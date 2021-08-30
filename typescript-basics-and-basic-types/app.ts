@@ -1,10 +1,15 @@
-function add(a: number, b: number) {
-  return a + b;
+function add(a: number, b: number, showResult: boolean, phrases: string) {
+  const result = a + b;
+  if (showResult) {
+    console.log(phrases + result);
+  } else {
+    return result;
+  }
 }
 
 const number1 = 5;
 const number2 = 6;
+const printResult = true;
+const resultPhrase = "Result is ";
 
-const result = add(number1, number1);
-
-console.log(result);
+add(number1, number1, printResult, resultPhrase);
