@@ -7,9 +7,10 @@ function add(a: number, b: number, showResult: boolean, phrases: string) {
   }
 }
 
-const number1 = 5;
-const number2 = 6;
-const printResult = true;
-const resultPhrase = "Result is ";
+let number1: number;
+number1 = 10;
+let number2: number = 6;
+let printResult: boolean = true;
+let resultPhrase: string = "Result is ";
 
 add(number1, number1, printResult, resultPhrase);
