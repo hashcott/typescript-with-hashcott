@@ -7,3 +7,10 @@ function printResult(n: number): void {
 }
 
 printResult(add(10, 4));
+
+let combineValues: (a: number, b: number) => number;
+
+combineValues = add;
+// combineValues = printResult;
+
+console.log(combineValues(10, 10));
