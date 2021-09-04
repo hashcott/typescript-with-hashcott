@@ -1,12 +1,17 @@
 class Department {
+  static fiscalYear = 2021;
   // private name: string;
   // private id: string;
   protected employees: string[] = [];
   constructor(private readonly id: string, private name: string) {
     // this.name = n;
     // this.id = id;
+    // console.log(this.fiscalYear); not working because this does refer to instance created based on the class
+    console.log(Department.fiscalYear);
   }
-
+  static createEmployee(name: string) {
+    return { name };
+  }
   describe(this: Department) {
     console.log(`Department: ${this.id} ${this.name}`);
   }
