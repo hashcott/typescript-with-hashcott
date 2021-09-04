@@ -3,7 +3,7 @@ abstract class Department {
   // private name: string;
   // private id: string;
   protected employees: string[] = [];
-  constructor(protected readonly id: string, private name: string) {
+  constructor(protected readonly id: string, protected name: string) {
     // this.name = n;
     // this.id = id;
     // console.log(this.fiscalYear); not working because this does refer to instance created based on the class
@@ -38,7 +38,7 @@ class ITDepartment extends Department {
 
 class AccountingDepartment extends Department {
   private lastReport: string;
-
+  private static instance: AccountingDepartment;
   get mostRecentReport() {
     if (this.lastReport) {
       return this.lastReport;
@@ -52,10 +52,19 @@ class AccountingDepartment extends Department {
     }
   }
 
-  constructor(id: string, private reports: string[]) {
+  private constructor(id: string, private reports: string[]) {
     super(id, "Accounting");
     this.lastReport = reports[0];
   }
+
+  static getInstance() {
+    if (this.instance) {
+      return this.instance;
+    }
+    this.instance = new AccountingDepartment("d2", []);
+    return this.instance;
+  }
+
   describe() {
     console.log("Accounting Department - ID: ", this.id);
   }
@@ -82,7 +91,10 @@ it.addEmployee("Harry");
 
 it.printEmployeeInformation();
 
-const accounting = new AccountingDepartment("d2", []);
+const accounting = AccountingDepartment.getInstance();
+const accounting2 = AccountingDepartment.getInstance();
+
+console.log(accounting === accounting2);
 
 // accounting.mostRecentReport = "";
 console.log(accounting.mostRecentReport);
