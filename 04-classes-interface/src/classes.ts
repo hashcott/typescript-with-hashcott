@@ -1,3 +1,13 @@
+interface AddFn {
+  (a: number, b: number): number;
+}
+
+let add: AddFn;
+
+add = (a: number, b: number) => {
+  return a + b;
+};
+
 interface Info {
   readonly name: string;
   age: number;
