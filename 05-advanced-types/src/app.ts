@@ -123,3 +123,12 @@ const errorBag: ErrorContainer = {
   email: "Not a valid email",
   username: "Must start with a capital character",
 };
+
+const user = {
+  user: "Harry",
+  info: {
+    number: 1233,
+  },
+};
+
+console.log(user?.info?.number);
