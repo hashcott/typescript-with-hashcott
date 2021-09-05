@@ -16,3 +16,8 @@ const e1: ElevatedEmployee = {
   privileges: ["Admin"],
   startDate: new Date(),
 };
+
+type Combinable = string | number;
+type Numeric = number | boolean;
+
+type Universal = Combinable & Numeric; // never when not match
