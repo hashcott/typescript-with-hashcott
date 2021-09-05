@@ -132,3 +132,8 @@ const user = {
 };
 
 console.log(user?.info?.number);
+
+const userInputs = undefined;
+const storeData = userInputs || "DEFAULT";
+
+console.log(storeData);
