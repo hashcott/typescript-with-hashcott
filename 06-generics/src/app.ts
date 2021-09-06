@@ -21,3 +21,18 @@ const mergeObj = merge<{ name: string }, { age: number }>(
 );
 
 console.log(mergeObj.name);
+
+interface Lengthy {
+  length: number;
+}
+function countAndDescription<T extends Lengthy>(element: T): [T, string] {
+  let descriptionText = "Got no value";
+  if (element.length === 1) {
+    descriptionText = "Got 1 element.";
+  } else if (element.length) {
+    descriptionText = `Got ${element.length} elements.`;
+  }
+  return [element, descriptionText];
+}
+
+console.log(countAndDescription("Hi there !"));
