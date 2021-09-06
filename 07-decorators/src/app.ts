@@ -39,3 +39,26 @@ class AppComponent {
 const app = new AppComponent();
 
 console.log(app.name);
+
+function Log(target: any, propertyName: string | Symbol) {
+  console.log("Logging...");
+  console.log(target, propertyName);
+}
+
+class Product {
+  @Log
+  title: string;
+  private _price: number;
+  set price(val: number) {
+    if (val > 0) {
+      this._price = val;
+    }
+  }
+  constructor(t: string, p: number) {
+    this.title = t;
+    this._price = p;
+  }
+  getPriceWithTax(tax: number) {
+    return this._price * (1 + tax);
+  }
+}
