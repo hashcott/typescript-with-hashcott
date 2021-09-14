@@ -215,7 +215,14 @@ class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
 
 class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
   private project: Project;
-
+  get persons(): string {
+    if (this.project.people === 1) {
+      return "1 person";
+    } else if (this.project.people > 1) {
+      return this.project.people + " persons";
+    }
+    return "";
+  }
   constructor(hostId: string, project: Project) {
     super("single-project", hostId, false, project.id);
     this.project = project;
@@ -227,8 +234,7 @@ class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
 
   renderContent() {
     this.element.querySelector("h2")!.textContent = this.project.title;
-    this.element.querySelector("h3")!.textContent =
-      this.project.people.toString();
+    this.element.querySelector("h3")!.textContent = this.persons;
     this.element.querySelector("p")!.textContent = this.project.description;
   }
 }
