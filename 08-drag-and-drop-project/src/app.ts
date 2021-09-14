@@ -14,12 +14,22 @@ class Project {
 }
 
 // Project State Management
-type Listener = (items: Project[]) => void;
-class ProjectState {
-  private listeners: Listener[] = [];
+type Listener<T> = (items: T[]) => void;
+
+class State<T> {
+  protected listeners: Listener<T>[] = [];
+
+  addListener(listenerFn: Listener<T>) {
+    this.listeners.push(listenerFn);
+  }
+}
+
+class ProjectState extends State<Project> {
   private projects: Project[] = [];
   private static instance: ProjectState;
-  private constructor() {}
+  private constructor() {
+    super();
+  }
 
   static getInstance() {
     if (this.instance) {
@@ -27,10 +37,6 @@ class ProjectState {
     }
     this.instance = new ProjectState();
     return this.instance;
-  }
-
-  addListener(listenerFn: Listener) {
-    this.listeners.push(listenerFn);
   }
 
   addProject(title: string, description: string, numberOfPeople: number) {
@@ -151,6 +157,11 @@ class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
 
     this.configure();
   }
+
+  renderContent() {}
+  configure() {
+    this.element.addEventListener("submit", this.submitHandle);
+  }
   private gatherUserInput(): [string, string, number] | void {
     const enteredTitle = this.titleInputElement.value;
     const enteredDescription = this.descriptionInputElement.value;
@@ -198,11 +209,6 @@ class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
       this.clearInput();
     }
   }
-
-  renderContent() {}
-  configure() {
-    this.element.addEventListener("submit", this.submitHandle);
-  }
 }
 
 // PROJECT LIST
@@ -240,6 +246,7 @@ class ProjectList extends Component<HTMLDivElement, HTMLFormElement> {
     const listEl = document.getElementById(
       `${this.type}-projects-list`
     ) as HTMLUListElement;
+    listEl.innerHTML = "";
     for (const prjItem of this.assignedProjects) {
       const listItem = document.createElement("li");
       listItem.textContent = prjItem.title;
